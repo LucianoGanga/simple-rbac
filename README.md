@@ -4,6 +4,9 @@ Simple RBAC (Role-based access control) for mongoose apps
 ## Requirements
 * [mongoose](https://github.com/learnboost/mongoose/)
 
+## We recommend using simple-rbac with this modules too
+* [simple-rbac-utils](https://github.com/LucianoGanga/simple-rbac-utils): Basic functions to check for permissions setted in RBAC, both for server-side and client-side (through templating engines, like [Dust.js](https://github.com/linkedin/dustjs/))
+
 ## Also works with these templating engines
 * [Dust.js](https://github.com/linkedin/dustjs/)
 
