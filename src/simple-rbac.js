@@ -20,15 +20,6 @@ var async = require('async');
 function init(collections, options) {
 
 	/**
-	 * TODO:
-	 * - Define the collection indexes automatically
-	 * - Make function to graph automatically the user-roles-permissions assignments (Example: http://sigmajs.org/)
-	 * - Change all the methods to work with names instead of ids in the parameters (add role, add permissions, etc)
-	 * - Make permissions and roles inheritance recursive (it only works 1 level deep now)
-	 * - Avoid population of the main object (user/role) when using method getRoles or getPermissions
-	 */
-
-	/**
 	 * Reference names of the collections and models
 	 */
 
