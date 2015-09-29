@@ -100,6 +100,87 @@ var rbac = simpleRbac.init(null, {
 });
 ```
 
+# simple-rbac API
+After initializating RBAC, we have methods to access the permissions, roles and users. 
+
+## Permissions
+### `rbac.Permissions.add(permission, callback);`
+Tries to add a new permission to the database and then return it back.
+If the permission exists, it just returns the existent one
+
+* `@param	{object}	permission`: Data that defines the permission. permission.permission and permission.operation are required
+* `@param	{Function}	callback`: Callback that returns an error or the permission object
+
+
+### `rbac.Permissions.remove(parameters, callback);`
+Tries to remove all the permissions with certain parameters.
+Returns the status of the removal and the number of elements removed
+
+* `@param {object}	parameters`:	Parameters to find the permissions to be removed. parameters.permission is required
+* `@param	{Function}	callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+
+### `rbac.Permissions.get(parameters, callback, opts);`
+Tries to get a permissions with certain parameters.
+Returns the permission
+
+* `@param {object}   parameters`:	Parameters to find the permissions.
+* `@param {Function} callback`:	Callback that returns an error or founded permission. Returns null if nothing was found.
+
+## Roles
+
+### `rbac.Roles.add(role, callback);`
+Tries to add a new role to the database and then return back that new role object.
+If the role exists, it just returns the existent one
+
+* `@param {object}   role`:	Data that defines the role. role.name is required
+* `@param {Function} callback`:	Callback that returns an error or the role object
+
+### `rbac.Roles.remove(roleName, callback);`
+Tries to remove a role matching roleName parameter.
+Returns the status of the removal and the number of elements removed
+
+* `@param {object}	parameters`:	Name of the role to be deleted
+* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+### `rbac.Roles.get(roleName, callback, opts);`
+Tries to get a role with certain parameters.
+Returns the found permission,
+
+* `@param {object}   parameters`:	Parameters to find the roles. parameters.permission is && parameters.operation are required
+* `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
+
+## Users
+
+### `rbac.Users.add(user, callback);`
+Tries to add a new user to the database and then return back that new user object.
+If the user exists, it just returns the existent one and returns 'true' as third parameter of the callback
+
+* `@param {object}   user`:	Data that defines the user. user.permission and permission.operation are required
+* `@param {Function} callback`:   Callback that returns an error or the user
+
+
+### `rbac.Users.remove(userName, callback);`
+Tries to remove a user matching roleName parameter.
+Returns the status of the removal and the number of elements removed
+* `@param {object}   parameters`:	Name of the user to be deleted
+* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+### `rbac.Users.get(userName, callback, opts);`
+Tries to get a user with it's username
+* `@param {object}	userName`:	Username
+* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
+
+### `rbac.Users.getById(userId, callback, opts);`
+Tries to get a user with it's ID
+* `@param {object}   userName`:	Username
+* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
+* `@param {object} opts`: Aditional options
+  * `{object}	opts.select`:	Allows to send an object with the field to be selected
+  * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
+  * `{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
+
+
 # Importing base data example
 A nice thing about this module is that it allows you to import the RBAC structure from a JS Object, allowing you to easily set your basic structure to start using the module without a UI.
 
@@ -227,83 +308,3 @@ rbac.importData(bulks.permission, bulks.role, bulks.user, function(importErr, re
 	});
 });
 ```
-
-# simple-rbac API
-After initializating RBAC, we have methods to access the permissions, roles and users. 
-
-## Permissions
-### rbac.Permissions.add(permission, callback);
-Tries to add a new permission to the database and then return it back.
-If the permission exists, it just returns the existent one
-
-* `@param	{object}	permission`: Data that defines the permission. permission.permission and permission.operation are required
-* `@param	{Function}	callback`: Callback that returns an error or the permission object
-
-
-### rbac.Permissions.remove(parameters, callback);
-Tries to remove all the permissions with certain parameters.
-Returns the status of the removal and the number of elements removed
-
-* `@param {object}	parameters`:	Parameters to find the permissions to be removed. parameters.permission is required
-* `@param	{Function}	callback`:	Callback that returns an error or the status of the removal and the number of elements removed
-
-
-### rbac.Permissions.get(parameters, callback, opts);
-Tries to get a permissions with certain parameters.
-Returns the permission
-
-* `@param {object}   parameters`:	Parameters to find the permissions.
-* `@param {Function} callback`:	Callback that returns an error or founded permission. Returns null if nothing was found.
-
-## Roles
-
-### rbac.Roles.add(role, callback);
-Tries to add a new role to the database and then return back that new role object.
-If the role exists, it just returns the existent one
-
-* `@param {object}   role`:	Data that defines the role. role.name is required
-* `@param {Function} callback`:	Callback that returns an error or the role object
-
-### rbac.Roles.remove(roleName, callback);
-Tries to remove a role matching roleName parameter.
-Returns the status of the removal and the number of elements removed
-
-* `@param {object}	parameters`:	Name of the role to be deleted
-* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
-
-### rbac.Roles.get(roleName, callback, opts);
-Tries to get a role with certain parameters.
-Returns the found permission,
-
-* `@param {object}   parameters`:	Parameters to find the roles. parameters.permission is && parameters.operation are required
-* `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
-
-## Users
-
-### rbac.Users.add(user, callback);
-Tries to add a new user to the database and then return back that new user object.
-If the user exists, it just returns the existent one and returns 'true' as third parameter of the callback
-
-* `@param {object}   user`:	Data that defines the user. user.permission and permission.operation are required
-* `@param {Function} callback`:   Callback that returns an error or the user
-
-
-### rbac.Users.remove(userName, callback);
-Tries to remove a user matching roleName parameter.
-Returns the status of the removal and the number of elements removed
-* `@param {object}   parameters`:	Name of the user to be deleted
-* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
-
-### rbac.Users.get(userName, callback, opts);
-Tries to get a user with it's username
-* `@param {object}	userName`:	Username
-* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
-
-### rbac.Users.getById(userId, callback, opts);
-Tries to get a user with it's ID
-* `@param {object}   userName`:	Username
-* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
-* `@param {object} opts`: Aditional options
-  * `{object}	opts.select`:	Allows to send an object with the field to be selected
-  * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
-  * `{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
