@@ -5,7 +5,7 @@
  */
 
 exports = module.exports = {
-	init: require('./src/simple-rbac.js'),
+	rbac: require('./src/simple-rbac.js'),
 	utils: require('./src/simple-rbac-utils.js'),
 	dustHelper: require('./src/dust/user-can.js')
 };
