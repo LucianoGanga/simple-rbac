@@ -31,11 +31,20 @@ function init(collections, options) {
 	/**
 	 * Reference names of the collections and models
 	 */
+
 	var collectionNames = {
-		permission: collections.permission,
-		role: collections.role,
-		user: collections.user
+		permission: 'rbac_permissions',
+		role: 'rbac_roles',
+		user: 'rbac_users'
 	};
+
+	if (!collections || typeof collections !== 'object') {
+		_.assign(collectionNames, {
+			permission: collections.permission || collectionNames.permission,
+			role: collections.role || collectionNames.role,
+			user: collections.user || collectionNames.user
+		});
+	}
 
 	/**
 	 * Define the schemas structure
