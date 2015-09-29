@@ -38,7 +38,7 @@ function init(collections, options) {
 		user: 'rbac_users'
 	};
 
-	if (!collections || typeof collections !== 'object') {
+	if (collections && typeof collections === 'object') {
 		_.assign(collectionNames, {
 			permission: collections.permission || collectionNames.permission,
 			role: collections.role || collectionNames.role,
