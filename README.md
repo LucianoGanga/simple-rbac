@@ -96,7 +96,8 @@ var rbac = simpleRbac.init(null, {
 	}
 });
 ```
-## Importing base data
+
+# Importing base data example
 A nice thing about this module is that it allows you to import the RBAC structure from a JS Object, allowing you to easily set your basic structure to start using the module without a UI.
 
 Doing this is really simple, you just need to prepare the bulk that you want to import, set the roles inheritance (if exists), and presto!
@@ -221,6 +222,21 @@ rbac.importData(bulks.permission, bulks.role, bulks.user, function(importErr, re
 			console.info('New users structure imported successfully!');
 		}
 	});
+});
+```
+
+# Usage
+
+To get a user by ID:
+```
+rbac.User.getById(id, function(userErr, user) {
+	if (userErr) {
+		done(userErr);
+	} else if (!user) {
+		done(new Error('User ' + id + ' could not be found.'));
+	} else {
+		done(null, user);
+	}
 });
 ```
 
