@@ -1,12 +1,12 @@
 'use strict';
 /**
- * Export src/simple-rbac.js
+ * Export
  *
  */
 
 exports = module.exports = {
 	rbac: require('./src/simple-rbac.js'),
-	utils: require('./src/simple-rbac-utils.js'),
+	utils: require('./src/utils.js'),
 	dustHelper: require('./src/dust/user-can.js')
 };
 
