@@ -31,7 +31,7 @@ You will need to initializate RBAC. There are a few options to do that.
 
 ### 1) Initializate RBAC by default:
 
-```
+```js
 var simpleRbac = require('simple-rbac').rbac;
 var rbac = simpleRbac.init();
 
@@ -45,7 +45,7 @@ var rbac = simpleRbac.init();
 
 ### 2) Initializate RBAC with your own collections
 
-```
+```js
 var simpleRbac = require('simple-rbac').rbac;
 var rbac = simpleRbac.init({
 	permission: 'my_rbac_permissions_collection',
@@ -58,7 +58,7 @@ var rbac = simpleRbac.init({
 ### 3) Initializate RBAC extending the collections schemas
 
 *Example 1:* customizing collection names and extending user's schema
-```
+```js
 var simpleRbac = require('simple-rbac').rbac;
 var rbac = simpleRbac.init({
 	permission: 'my_rbac_permissions_collection',
@@ -76,7 +76,7 @@ var rbac = simpleRbac.init({
 });
 ```
 *Example 2:* extending user's schema and permission's schema
-```
+```js
 var simpleRbac = require('simple-rbac').rbac;
 var rbac = simpleRbac.init(null, {
 	extendSchemas: {
@@ -105,7 +105,7 @@ A nice thing about this module is that it allows you to import the RBAC structur
 
 Doing this is really simple, you just need to prepare the bulk that you want to import, set the roles inheritance (if exists), and presto!
 
-```
+```js
 'use strict';
 
 /**
@@ -228,18 +228,82 @@ rbac.importData(bulks.permission, bulks.role, bulks.user, function(importErr, re
 });
 ```
 
-# Usage
+# simple-rbac API
+After initializating RBAC, we have methods to access the permissions, roles and users. 
 
-To get a user by ID:
-```
-rbac.User.getById(id, function(userErr, user) {
-	if (userErr) {
-		done(userErr);
-	} else if (!user) {
-		done(new Error('User ' + id + ' could not be found.'));
-	} else {
-		done(null, user);
-	}
-});
-```
+## Permissions
+### rbac.Permissions.add(permission, callback);
+Tries to add a new permission to the database and then return it back.
+If the permission exists, it just returns the existent one
 
+* `@param	{object}	permission`: Data that defines the permission. permission.permission and permission.operation are required
+* `@param	{Function}	callback`: Callback that returns an error or the permission object
+
+
+### rbac.Permissions.remove(parameters, callback);
+Tries to remove all the permissions with certain parameters.
+Returns the status of the removal and the number of elements removed
+
+* `@param {object}	parameters`:	Parameters to find the permissions to be removed. parameters.permission is required
+* `@param	{Function}	callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+
+### rbac.Permissions.get(parameters, callback, opts);
+Tries to get a permissions with certain parameters.
+Returns the permission
+
+* `@param {object}   parameters`:	Parameters to find the permissions.
+* `@param {Function} callback`:	Callback that returns an error or founded permission. Returns null if nothing was found.
+
+## Roles
+
+### rbac.Roles.add(role, callback);
+Tries to add a new role to the database and then return back that new role object.
+If the role exists, it just returns the existent one
+
+* `@param {object}   role`:	Data that defines the role. role.name is required
+* `@param {Function} callback`:	Callback that returns an error or the role object
+
+### rbac.Roles.remove(roleName, callback);
+Tries to remove a role matching roleName parameter.
+Returns the status of the removal and the number of elements removed
+
+* `@param {object}	parameters`:	Name of the role to be deleted
+* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+### rbac.Roles.get(roleName, callback, opts);
+Tries to get a role with certain parameters.
+Returns the found permission,
+
+* `@param {object}   parameters`:	Parameters to find the roles. parameters.permission is && parameters.operation are required
+* `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
+
+## Users
+
+### rbac.Users.add(user, callback);
+Tries to add a new user to the database and then return back that new user object.
+If the user exists, it just returns the existent one and returns 'true' as third parameter of the callback
+
+* `@param {object}   user`:	Data that defines the user. user.permission and permission.operation are required
+* `@param {Function} callback`:   Callback that returns an error or the user
+
+
+### rbac.Users.remove(userName, callback);
+Tries to remove a user matching roleName parameter.
+Returns the status of the removal and the number of elements removed
+* `@param {object}   parameters`:	Name of the user to be deleted
+* `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
+
+### rbac.Users.get(userName, callback, opts);
+Tries to get a user with it's username
+* `@param {object}	userName`:	Username
+* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
+
+### rbac.Users.getById(userId, callback, opts);
+Tries to get a user with it's ID
+* `@param {object}   userName`:	Username
+* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
+* `@param {object} opts`: Aditional options
+	`{object}	opts.select`:	Allows to send an object with the field to be selected
+    `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
+    `{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
