@@ -1,4 +1,4 @@
-# simple-rbac Introduction
+# simple-rbac - introduction
 Simple RBAC (Role-based access control) for mongoose apps
 
 ## Requirements
