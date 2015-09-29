@@ -4,11 +4,7 @@
  *
  */
 
-exports = module.exports = {
-	rbac: require('./src/simple-rbac.js'),
-	utils: require('./src/utils.js'),
-	dustHelper: require('./src/dust/user-can.js')
-};
+exports = module.exports = require('./src/simple-rbac.js');
 
 /*
   Export the version
