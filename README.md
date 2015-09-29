@@ -304,6 +304,7 @@ Tries to get a user with it's ID
 * `@param {object}   userName`:	Username
 * `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
 * `@param {object} opts`: Aditional options
+
 	`{object}	opts.select`:	Allows to send an object with the field to be selected
-    `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
-    `{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
+	`{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
+	`{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
