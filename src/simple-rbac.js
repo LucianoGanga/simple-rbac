@@ -18,7 +18,7 @@ var async = require('async');
  * @return {object}        			Object with the methods to work with the rbac instance
  */
 function init(collections, options) {
-
+	options = options || {};
 	/**
 	 * Reference names of the collections and models
 	 */
@@ -100,13 +100,13 @@ function init(collections, options) {
 	/**
 	 * Extend schemas with optional additional parameters
 	 */
-	if (typeof options.extendSchemas.permission === 'object') {
+	if (options.extendSchemas && typeof options.extendSchemas.permission === 'object') {
 		schemas.permission = _.assign(schemas.permission, options.extendSchemas.permission);
 	}
-	if (typeof options.extendSchemas.role === 'object') {
+	if (options.extendSchemas && typeof options.extendSchemas.role === 'object') {
 		schemas.role = _.assign(schemas.role, options.extendSchemas.role);
 	}
-	if (typeof options.extendSchemas.user === 'object') {
+	if (options.extendSchemas && typeof options.extendSchemas.user === 'object') {
 		schemas.user = _.assign(schemas.user, options.extendSchemas.user);
 	}
 
