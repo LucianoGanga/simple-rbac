@@ -612,7 +612,7 @@ function init(collections, options) {
 		/**
 		 * User.remove() method tries to remove a user matching roleName parameter.
 		 * Returns the status of the removal and the number of elements removed
-		 * @param {object}   parameters 	Name of the user to be deleted
+		 * @param {string}   userName 	Name of the user to be deleted
 		 * @param {Function} done       	Callback that returns an error or the status of the removal and the number of elements removed
 		 */
 		remove: function(userName, done) {
@@ -728,6 +728,63 @@ function init(collections, options) {
 					});
 			} else {
 				done(new Error('Error when using "getById" method in "User" object: a user id is required.'));
+			}
+		},
+
+		/**
+		 * User.getFull() method tries to get all the user data, using it's ID or it's userName. 
+		 * Also, removes all the mongoose methods. It just returns an object with all the user data + roles + permissions
+		 * @param {string}   id 	Username or ID
+		 * @param {Function} done   Callback that returns an error or founded user. Returns null if nothing was found.
+		 */
+		getFull: function(id, done) {
+
+			// Regex to validate objectId
+			var checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
+			var filter = {};
+
+			// If is an objectId
+			if (checkForHexRegExp.test(id)) {
+				filter._id = id;
+			} else {
+				filter.userName = id;
+			}
+
+			if (id) {
+				var query = UserModel.findOne(filter);
+
+				async.auto({
+						user: function(next) {
+							query.exec(next);
+						},
+						permissions: ['user', _getUserPermissions],
+						roles: ['user', _getUserRoles]
+					},
+					function(userDataErr, results) {
+						if (userDataErr) {
+							done(userDataErr);
+						} else if (!results.user) {
+							done(null, null);
+						} else {
+
+							// Save the efective permissions and roles in a variable
+							var effectivePermissions = results.permissions;
+							var effectiveRoles = results.roles;
+
+							// Remove all the mongoose functions, and get only the user data
+							var user = results.user.toObject({
+								virtuals: true
+							});
+
+							// Apply the effective permissions and roles to the userData object
+							user.permissions = effectivePermissions;
+							user.roles = effectiveRoles;
+
+							done(null, user);
+						}
+					});
+			} else {
+				done(new Error('Error when using "getFull" method in "User" object: a userName or userId is required.'));
 			}
 		}
 	};
@@ -850,6 +907,7 @@ function init(collections, options) {
 			}
 		});
 	}
+
 	/**
 	 * Returns an array of the permissions found in the array of roles passed as parameter.
 	 * If the roles are populated, it returns the full permission data. If not, it only returns
