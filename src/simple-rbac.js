@@ -671,7 +671,7 @@ function init(collections, options) {
 		},
 		/**
 		 * User.getById() method tries to get a user with it's ID
-		 * @param {object}   userName 	Username
+		 * @param {String}   userId 	Username
 		 * @param {Function} done       Callback that returns an error or founded user. Returns null if nothing was found.
 		 * @param {object} opts 		Aditional options
 		 *                        			{object}	opts.select		Allows to send an object with the field to be selected

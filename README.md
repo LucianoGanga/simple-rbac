@@ -163,7 +163,7 @@ If the user exists, it just returns the existent one and returns 'true' as third
 ### `rbac.Users.remove(userName, callback);`
 Tries to remove a user matching roleName parameter.
 Returns the status of the removal and the number of elements removed
-* `@param {object}   parameters`:	Name of the user to be deleted
+* `@param {string}   userName:	Name of the user to be deleted
 * `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
 
 ### `rbac.Users.get(userName, callback, opts);`
@@ -173,12 +173,17 @@ Tries to get a user with it's username
 
 ### `rbac.Users.getById(userId, callback, opts);`
 Tries to get a user with it's ID
-* `@param {object}   userName`:	Username
+* `@param {string}   userId`:	Username
 * `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
 * `@param {object} opts`: Aditional options
   * `{object}	opts.select`:	Allows to send an object with the field to be selected
   * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
   * `{boolean}	opts.toObject`:	Before returning the user, it converts it to an object, merging the effectivePermissions and effectiveRoles in the user's permissions and roles parameters
+
+### `rbac.Users.getFull(userName|userId, callback);`
+Tries to get all the user data, using it's ID or it's userName. 
+* `@param {object}	userName`:	Username
+* `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
 
 
 # Importing base data example
