@@ -127,6 +127,32 @@ Returns the permission
 * `@param {object}   parameters`:	Parameters to find the permissions.
 * `@param {Function} callback`:	Callback that returns an error or founded permission. Returns null if nothing was found.
 
+### Permission's methods
+After you get a permission using the API (for example, when you do `rbac.Permission.add` or `rbac.Permission.get`), you get an object with the permission itself. 
+
+This new object is a mongoose object, which means that you can operate with it using any mongoose method on it. 
+Besides that, `simple-rbac` has a method to simplify your work. 
+
+So, if you do this:
+
+```
+rbac.Permission.get({
+	permission: 'accountSettings',
+    operation: 'read'
+    }, function(err, permission) {
+    	console.log(permission);
+});
+```
+
+you get all the permission's information, and can use a permission's method:
+
+
+### `permission.edit(newData, callback);`
+Edits a permission properties
+* @param  {Object}   newData Object with the new properties for the permission
+* @param  {Function} callback    Callback. Returns the callback of the mongoose's save() function
+
+
 ## Roles
 
 ### `rbac.Roles.add(role, callback);`
@@ -149,6 +175,55 @@ Returns the found permission,
 
 * `@param {object}   parameters`:	Parameters to find the roles. parameters.permission is && parameters.operation are required
 * `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
+
+### Role's methods
+After you get a role using the API (for example, when you do `rbac.Role.add` or `rbac.Role.get`), you get an object with the role itself. 
+
+This new object is a mongoose object, which means that you can operate with it using any mongoose method on it. 
+Besides that, `simple-rbac` has methods to simplify your work. 
+
+So, if you do this:
+
+```
+rbac.Role.get({
+	name: 'manager'
+    }, function(err, role) {
+    	console.log(role);
+});
+```
+
+you get all the role's information, and can use any role's method:
+
+### `role.edit(newData, callback);`
+Edits a role properties
+* @param  {Object}   newData Object with the new properties
+* @param  {Function} done    Callback. Returns the callback of the mongoose's save() function
+
+### `role.addInheritedRoles(rolesArray, callback);`
+Add all the roles listed in the rolesArray param
+* @param {Array}   rolesArray 	Array filled with role names
+* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+
+### `role.removeInheritedRoles(rolesArray, callback);`
+Removes all the inheritRoles listed in the permissionsArray param
+* @param  {Array}   rolesArray 	Array filled with roles names
+* @param  {Function} callback	Callback. Returns the callback of the mongoose's save() function
+
+### `role.addPermissions(permissionsArray, callback);`
+Add all the permissions listed in the permissionsArray param
+* @param {Array}   permissionsArray	Array filled with permissionsIds
+* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+
+### `role.removePermissions(permissionsArray, callback);`
+Removes all the permissions listed in the permissionsArray param
+* @param  {Array}   permissionsArray Array filled with permissionsIds
+* @param  {Function} callback	Callback. Returns the callback of the mongoose's save() function
+
+### `role.getPermissions(populate, callback);`
+Returns all the permissions of a role
+* @param  {Boolean} 	populate	If true, populates the permission IDs with their full data
+* @param  {Function} 	callback	Callback. Parameters: `callback(error, permissions);`
+
 
 ## Users
 
@@ -184,6 +259,50 @@ Tries to get a user with it's ID
 Tries to get all the user data, using it's ID or it's userName. 
 * `@param {object}	userName`:	Username
 * `@param {Function} callback`:	Callback that returns an error or founded user. Returns null if nothing was found.
+
+### User's methods
+After you get a user using the API (for example, when you do `rbac.User.add` or `rbac.User.getById`), you get an object with the user itself. 
+
+This new object is a mongoose object, which means that you can operate with it using any mongoose method on it. 
+Besides that, `simple-rbac` has methods to simplify your work. 
+
+So, if you do this:
+
+```
+rbac.User.get({
+	userName: 'bart.simpson'
+    }, function(err, user) {
+    	console.log(user);
+});
+```
+
+you get all the user's information, and can use any user's method:
+
+
+### `user.edit(newData, callback);`
+Edits a user properties
+* @param  {Object}   newData Object with the new properties
+* @param  {Function} callback    Callback. Returns the callback of the mongoose's save() function
+
+### `user.addRoles(rolesArray, callback);`
+Add all the roles listed in the rolesArray param
+* @param {Array}   rolesArray Array filled with roleIds
+* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+
+### `user.removeRoles(rolesArray, callback);`
+Removes all the roles listed in the rolesArray param
+* @param  {Array}   rolesArray	Array filled with roleIds
+* @param  {Function} callback 	Callback. Returns the callback of the mongoose's save() function
+
+### `user.getRoles(populate, callback);`
+Returns all the user of a user
+* @param  {Boolean} 	populate	If true, populates the role IDs with their full data
+* @param  {Function} 	callback	Callback
+
+### `user.getPermissions(populate, callback);`
+Returns all the permissions of a user.
+* @param  {Boolean} 	populate	If true, populates the permission IDs with their full data
+* @param  {Function} 	callback	Callback
 
 
 # Importing base data example

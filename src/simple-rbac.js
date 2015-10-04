@@ -348,7 +348,7 @@ function init(collections, options) {
 	};
 
 	/**
-	 * Returns all the user of a user. If the parameter populate is false, it returns instantly a list of role IDs
+	 * Returns all the user of a user
 	 * @param  {Boolean} 	populate 	If true, populates the role IDs with their full data
 	 * @param  {Function} 	done 		Callback
 	 */
