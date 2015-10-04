@@ -135,7 +135,7 @@ Besides that, `simple-rbac` has a method to simplify your work.
 
 So, if you do this:
 
-```
+```js
 rbac.Permission.get({
 	permission: 'accountSettings',
     operation: 'read'
@@ -149,8 +149,8 @@ you get all the permission's information, and can use a permission's method:
 
 ### `permission.edit(newData, callback);`
 Edits a permission properties
-* @param  {Object}   newData Object with the new properties for the permission
-* @param  {Function} callback    Callback. Returns the callback of the mongoose's save() function
+* `@param  {Object}   newData`: Object with the new properties for the permission
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 
 ## Roles
@@ -184,7 +184,7 @@ Besides that, `simple-rbac` has methods to simplify your work.
 
 So, if you do this:
 
-```
+```js
 rbac.Role.get({
 	name: 'manager'
     }, function(err, role) {
@@ -196,33 +196,33 @@ you get all the role's information, and can use any role's method:
 
 ### `role.edit(newData, callback);`
 Edits a role properties
-* @param  {Object}   newData Object with the new properties
-* @param  {Function} done    Callback. Returns the callback of the mongoose's save() function
+* `@param  {Object}   newData`: Object with the new properties
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `role.addInheritedRoles(rolesArray, callback);`
 Add all the roles listed in the rolesArray param
-* @param {Array}   rolesArray 	Array filled with role names
-* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+* `@param {Array}   rolesArray`: Array filled with role names
+* `@param {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `role.removeInheritedRoles(rolesArray, callback);`
 Removes all the inheritRoles listed in the permissionsArray param
-* @param  {Array}   rolesArray 	Array filled with roles names
-* @param  {Function} callback	Callback. Returns the callback of the mongoose's save() function
+* `@param  {Array}   rolesArray`: Array filled with roles names
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `role.addPermissions(permissionsArray, callback);`
 Add all the permissions listed in the permissionsArray param
-* @param {Array}   permissionsArray	Array filled with permissionsIds
-* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+* `@param {Array}   permissionsArray`: Array filled with permissionsIds
+* `@param {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `role.removePermissions(permissionsArray, callback);`
 Removes all the permissions listed in the permissionsArray param
-* @param  {Array}   permissionsArray Array filled with permissionsIds
-* @param  {Function} callback	Callback. Returns the callback of the mongoose's save() function
+* `@param  {Array}   permissionsArray`: Array filled with permissionsIds
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `role.getPermissions(populate, callback);`
 Returns all the permissions of a role
-* @param  {Boolean} 	populate	If true, populates the permission IDs with their full data
-* @param  {Function} 	callback	Callback. Parameters: `callback(error, permissions);`
+* `@param  {Boolean} populate`:	If true, populates the permission IDs with their full data
+* `@param  {Function} callback`: Callback. Parameters: `callback(error, permissions);`
 
 
 ## Users
@@ -238,7 +238,7 @@ If the user exists, it just returns the existent one and returns 'true' as third
 ### `rbac.Users.remove(userName, callback);`
 Tries to remove a user matching roleName parameter.
 Returns the status of the removal and the number of elements removed
-* `@param {string}   userName:	Name of the user to be deleted
+* `@param {string}   userName`:	Name of the user to be deleted
 * `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
 
 ### `rbac.Users.get(userName, callback, opts);`
@@ -268,7 +268,7 @@ Besides that, `simple-rbac` has methods to simplify your work.
 
 So, if you do this:
 
-```
+```js
 rbac.User.get({
 	userName: 'bart.simpson'
     }, function(err, user) {
@@ -281,28 +281,28 @@ you get all the user's information, and can use any user's method:
 
 ### `user.edit(newData, callback);`
 Edits a user properties
-* @param  {Object}   newData Object with the new properties
-* @param  {Function} callback    Callback. Returns the callback of the mongoose's save() function
+* `@param  {Object}   newData`: Object with the new properties
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `user.addRoles(rolesArray, callback);`
 Add all the roles listed in the rolesArray param
-* @param {Array}   rolesArray Array filled with roleIds
-* @param {Function} callback	Callback. Returns the callback of the mongoose's save() function
+* `@param {Array} rolesArray`: Array filled with roleIds
+* `@param {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `user.removeRoles(rolesArray, callback);`
 Removes all the roles listed in the rolesArray param
-* @param  {Array}   rolesArray	Array filled with roleIds
-* @param  {Function} callback 	Callback. Returns the callback of the mongoose's save() function
+* `@param  {Array} rolesArray`: Array filled with roleIds
+* `@param  {Function} callback`: Callback. Returns the callback of the mongoose's save() function
 
 ### `user.getRoles(populate, callback);`
 Returns all the user of a user
-* @param  {Boolean} 	populate	If true, populates the role IDs with their full data
-* @param  {Function} 	callback	Callback
+* `@param  {Boolean} 	populate`: If true, populates the role IDs with their full data
+* `@param  {Function} 	callback`: Callback
 
 ### `user.getPermissions(populate, callback);`
 Returns all the permissions of a user.
-* @param  {Boolean} 	populate	If true, populates the permission IDs with their full data
-* @param  {Function} 	callback	Callback
+* `@param  {Boolean} 	populate`:	If true, populates the permission IDs with their full data
+* `@param  {Function} 	callback`:	Callback
 
 
 # Importing base data example
