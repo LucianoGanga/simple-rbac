@@ -466,14 +466,37 @@ function init(collections, options) {
 
 		/**
 		 * Permission.get() method tries to get a permissions with certain parameters.
-		 * Returns the found permission,
 		 * @param {object}   parameters 	Parameters to find the permissions.
 		 * @param {Function} done       	Callback that returns an error or founded permission. Returns null if nothing was found.
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
 		 */
 		get: function(parameters, done, opts) {
 			opts = opts || {};
 			parameters = parameters || {};
 			var query = PermissionModel.findOne(parameters);
+			if (opts.select) {
+				query.select(opts.select);
+			}
+			if (opts.lean) {
+				query.lean();
+			}
+			query.exec(done);
+		},
+
+		/**
+		 * Permission.getAll() method tries to get all the permissions that match a filter.
+		 * @param {object}   filter 	Filter to find the permissions.
+		 * @param {Function} done       Callback that returns an error or founded permissions.
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
+		 */
+		getAll: function(filter, done, opts) {
+			opts = opts || {};
+			filter = filter || {};
+			var query = PermissionModel.find(filter);
 			if (opts.select) {
 				query.select(opts.select);
 			}
@@ -542,9 +565,12 @@ function init(collections, options) {
 
 		/**
 		 * Role.get() method tries to get a role with certain parameters.
-		 * Returns the found permission,
+		 * Returns the found role,
 		 * @param {object}   parameters 	Parameters to find the roles. parameters.permission is && parameters.operation are required
 		 * @param {Function} done       	Callback that returns an error or founded role. Returns null if nothing was found.
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
 		 */
 		get: function(roleName, done, opts) {
 			opts = opts || {};
@@ -562,6 +588,28 @@ function init(collections, options) {
 			} else {
 				done(new Error('Error when using "get" method in "Role" object: a role name is required.'));
 			}
+		},
+
+		/**
+		 * Role.getAll() method tries to get all the roles that match a filter.
+		 * Returns the found roles,
+		 * @param {object}   filter 	Filter to find the roles.
+		 * @param {Function} done       	Callback that returns an error or founded roles.
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
+		 */
+		getAll: function(filter, done, opts) {
+			opts = opts || {};
+			filter = filter || {};
+			var query = RoleModel.find(filter);
+			if (opts.select) {
+				query.select(opts.select);
+			}
+			if (opts.lean) {
+				query.lean();
+			}
+			query.exec(done);
 		}
 	};
 
@@ -629,7 +677,9 @@ function init(collections, options) {
 		 * User.get() method tries to get a user with it's username
 		 * @param {object}   userName 	Username
 		 * @param {Function} done       Callback that returns an error or founded user. Returns null if nothing was found.
-		 *
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
 		 */
 		get: function(userName, done, opts) {
 			opts = opts || {};
@@ -669,6 +719,28 @@ function init(collections, options) {
 				done(new Error('Error when using "get" method in "User" object: a user name is required.'));
 			}
 		},
+
+		/**
+		 * User.getAll() method tries to get all the users that match a filter
+		 * @param {object}   filter 	Filter
+		 * @param {Function} done       Callback that returns an error or founded users
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
+		 */
+		getAll: function(filter, done, opts) {
+			opts = opts || {};
+			filter = filter || {};
+			var query = UserModel.find(filter);
+			if (opts.select) {
+				query.select(opts.select);
+			}
+			if (opts.lean) {
+				query.lean();
+			}
+			query.exec(done);
+		},
+
 		/**
 		 * User.getById() method tries to get a user with it's ID
 		 * @param {String}   userId 	Username
