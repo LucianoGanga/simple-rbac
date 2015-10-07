@@ -176,13 +176,20 @@ Returns the status of the removal and the number of elements removed
 * `@param {Function} callback`:	Callback that returns an error or the status of the removal and the number of elements removed
 
 ### `rbac.Roles.get(roleName, callback, opts);`
-Tries to get a role with certain parameters.
-* `@param {object}   parameters`:	Parameters to find the roles. parameters.permission is && parameters.operation are required
+Tries to get a role by roleName
+* `@param {string}   roleName`:	Role Name
 * `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
 * `@param {object} opts`: Aditional options
   * `{object}	opts.select`:	Allows to send an object with the field to be selected
   * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
 
+### `rbac.Roles.getById(roleId, callback, opts);`
+Tries to get a role with by id
+* `@param {string}   roleId`:	Role Id
+* `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
+* `@param {object} opts`: Aditional options
+  * `{object}	opts.select`:	Allows to send an object with the field to be selected
+  * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
 
 ### `rbac.Roles.getAll(filter, callback, opts);`
 Tries to get all the roles that match a filter

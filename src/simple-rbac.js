@@ -564,9 +564,8 @@ function init(collections, options) {
 		},
 
 		/**
-		 * Role.get() method tries to get a role with certain parameters.
-		 * Returns the found role,
-		 * @param {object}   parameters 	Parameters to find the roles. parameters.permission is && parameters.operation are required
+		 * Role.get() method tries to get a role by role name
+		 * @param {string}   roleName 	Role name
 		 * @param {Function} done       	Callback that returns an error or founded role. Returns null if nothing was found.
 		 * @param {object} opts 		Aditional options
 		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
@@ -587,6 +586,32 @@ function init(collections, options) {
 				query.exec(done);
 			} else {
 				done(new Error('Error when using "get" method in "Role" object: a role name is required.'));
+			}
+		},
+
+		/**
+		 * Role.getById() method tries to get a role by id
+		 * @param {string}   roleId 	Role name. parameters.permission is && parameters.operation are required
+		 * @param {Function} done       	Callback that returns an error or founded role. Returns null if nothing was found.
+		 * @param {object} opts 		Aditional options
+		 *                        			{object}	opts.select		Allows to send an object with the field to be selected
+		 *                        			{boolean}	opts.lean		Makes the mongo query "lean" (mongoose)
+		 */
+		getById: function(roleId, done, opts) {
+			opts = opts || {};
+			if (roleId) {
+				var query = RoleModel.findOne({
+					_id: roleId
+				});
+				if (opts.select) {
+					query.select(opts.select);
+				}
+				if (opts.lean) {
+					query.lean();
+				}
+				query.exec(done);
+			} else {
+				done(new Error('Error when using "getById" method in "Role" object: a role id is required.'));
 			}
 		},
 
