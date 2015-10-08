@@ -184,7 +184,7 @@ Tries to get a role by roleName
   * `{boolean}	opts.lean`:	Makes the mongo query "lean" (mongoose)
 
 ### `rbac.Roles.getById(roleId, callback, opts);`
-Tries to get a role with by id
+Tries to get a role by id
 * `@param {string}   roleId`:	Role Id
 * `@param {Function} callback`:	Callback that returns an error or founded role. Returns null if nothing was found.
 * `@param {object} opts`: Aditional options

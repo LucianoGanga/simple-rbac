@@ -835,7 +835,6 @@ function init(collections, options) {
 		 * @param {Function} done   Callback that returns an error or founded user. Returns null if nothing was found.
 		 */
 		getFull: function(id, done) {
-
 			// Regex to validate objectId
 			var checkForHexRegExp = new RegExp('^[0-9a-fA-F]{24}$');
 			var filter = {};
@@ -850,13 +849,15 @@ function init(collections, options) {
 			if (id) {
 				var query = UserModel.findOne(filter);
 
-				async.auto({
-						user: function(next) {
-							query.exec(next);
-						},
-						permissions: ['user', _getUserPermissions],
-						roles: ['user', _getUserRoles]
+				var sequence = {
+					user: function(next) {
+						query.exec(next);
 					},
+					permissions: ['user', _getUserPermissions],
+					roles: ['user', _getUserRoles]
+				};
+
+				async.auto(sequence,
 					function(userDataErr, results) {
 						if (userDataErr) {
 							done(userDataErr);
@@ -868,8 +869,10 @@ function init(collections, options) {
 							var effectivePermissions = results.permissions;
 							var effectiveRoles = results.roles;
 
+							var user = results.user
+
 							// Remove all the mongoose functions, and get only the user data
-							var user = results.user.toObject({
+							user.toObject({
 								virtuals: true
 							});
 
