@@ -869,10 +869,8 @@ function init(collections, options) {
 							var effectivePermissions = results.permissions;
 							var effectiveRoles = results.roles;
 
-							var user = results.user
-
 							// Remove all the mongoose functions, and get only the user data
-							user.toObject({
+							var user = results.user.toObject({
 								virtuals: true
 							});
 
