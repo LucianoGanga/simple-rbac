@@ -8,7 +8,7 @@ Simple RBAC (Role-based access control) for mongoose apps
 * [mongoose](https://github.com/learnboost/mongoose/)
 
 ## Promises available!
-* Thanks to [Bluebird](https://github.com/petkaantonov/bluebird), simple-rbac can transform all it's async functions into promises. To use them, you'll have all the public methods with the suffix `Async` and promisified (read [this](http://bluebirdjs.com/docs/api/promise.promisifyall.html) to check how it's done)
+* Thanks to [Bluebird](https://github.com/petkaantonov/bluebird), simple-rbac can transform all it's async methods into promises. To use them, you'll have all the public methods with the suffix `Async` and promisified (read [this](http://bluebirdjs.com/docs/api/promise.promisifyall.html) to check how it's done)
 
 ## Also works with these templating engines
 * [Dust.js](https://github.com/linkedin/dustjs/)

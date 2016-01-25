@@ -13,17 +13,17 @@
     "rbac",
     "user",
     "Role based access control",
-    "dust"
+    "dust",
+    "promises",
+    "express-rbac"
   ],
   "author": {
     "name": "Luciano Andrés Ganga Carabante"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/LucianoGanga/simple-rbac/blob/master/LICENSE-MIT"
-    }
-  ],
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/LucianoGanga/simple-rbac/blob/master/LICENSE-MIT"
+  }],
   "bugs": {
     "url": "https://github.com/LucianoGanga/simple-rbac/issues"
   },
@@ -43,10 +43,8 @@
     "mongoose-find-one-or-create": "^0.2.0",
     "winston": "1.0.0"
   },
-  "maintainers": [
-    {
-      "name": "lucho_1312",
-      "email": "lucho_1312@hotmail.com"
-    }
-  ]
+  "maintainers": [{
+    "name": "lucho_1312",
+    "email": "lucho_1312@hotmail.com"
+  }]
 }
