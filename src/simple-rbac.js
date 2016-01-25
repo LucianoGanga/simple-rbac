@@ -1048,12 +1048,26 @@ function init(collections, options) {
 		return collectionName + '_model';
 	}
 
-	return {
+	var rbacMethods = {
 		Permission: Permissions,
 		Role: Roles,
 		User: Users,
-		importData: importData
+		importData: importData,
+		models: {
+			permission: PermissionModel,
+			role: RoleModel,
+			user: UserModel
+		},
+		schemas: schemas
 	};
+
+	// Promisify all the public functions of the module
+	Promise.promisifyAll(rbacMethods);
+	Promise.promisifyAll(Permissions);
+	Promise.promisifyAll(Roles);
+	Promise.promisifyAll(Users);
+
+	return rbacMethods;
 }
 
 /**
