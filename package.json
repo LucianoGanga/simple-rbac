@@ -35,6 +35,7 @@
   },
   "dependencies": {
     "async": "0.9.0",
+    "bluebird": "^3.1.4",
     "lodash": "3.10.0",
     "mongoose-find-one-or-create": "^0.2.0",
     "winston": "1.0.0"

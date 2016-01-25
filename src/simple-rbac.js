@@ -9,6 +9,7 @@ var winston = require('winston');
 var mongoose = require('mongoose');
 var findOneOrCreate = require('mongoose-find-one-or-create');
 var async = require('async');
+var Promise = require('bluebird');
 
 /**
  * Initializes the RBAC module, by receiving the name of the 3 main collections to work with them.
