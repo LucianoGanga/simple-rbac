@@ -1,6 +1,6 @@
 {
   "name": "simple-rbac",
-  "version": "1.0.16",
+  "version": "1.1.0",
   "description": "Module to get RBAC (Role-based access control) in a NodeJS app, using Mongoose.",
   "main": "index.js",
   "repository": {
