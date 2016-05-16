@@ -59,12 +59,6 @@ function init(collections, options) {
 			},
 			description: {
 				type: String
-			},
-			createdAt: {
-				type: Date
-			},
-			updatedAt: {
-				type: Date
 			}
 		},
 		role: {
@@ -85,34 +79,17 @@ function init(collections, options) {
 			permissions: [{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: _makeModelName(collectionNames.permission)
-			}],
-			createdAt: {
-				type: Date
-			},
-			updatedAt: {
-				type: Date
-			}
+			}]
 		},
 		user: {
 			userName: {
 				type: String,
 				required: true
 			},
-			active: {
-				type: Boolean,
-				required: true,
-				default: true
-			},
 			roles: [{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: _makeModelName(collectionNames.role)
-			}],
-			createdAt: {
-				type: Date
-			},
-			updatedAt: {
-				type: Date
-			}
+			}]
 		}
 	};
 
@@ -168,7 +145,8 @@ function init(collections, options) {
 	 * Role Schema Instance
 	 */
 	var RoleSchema = new mongoose.Schema(schemas.role, {
-		collection: collectionNames.role
+		collection: collectionNames.role,
+		timestamps: true
 	});
 
 	/**
@@ -322,7 +300,8 @@ function init(collections, options) {
 	 * User Schema instance
 	 */
 	var UserSchema = new mongoose.Schema(schemas.user, {
-		collection: collectionNames.user
+		collection: collectionNames.user,
+		timestamps: true
 	});
 
 	/**
