@@ -59,6 +59,12 @@ function init(collections, options) {
 			},
 			description: {
 				type: String
+			},
+			createdAt: {
+				type: Date
+			},
+			updatedAt: {
+				type: Date
 			}
 		},
 		role: {
@@ -79,7 +85,13 @@ function init(collections, options) {
 			permissions: [{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: _makeModelName(collectionNames.permission)
-			}]
+			}],
+			createdAt: {
+				type: Date
+			},
+			updatedAt: {
+				type: Date
+			}
 		},
 		user: {
 			userName: {
@@ -89,7 +101,13 @@ function init(collections, options) {
 			roles: [{
 				type: mongoose.Schema.Types.ObjectId,
 				ref: _makeModelName(collectionNames.role)
-			}]
+			}],
+			createdAt: {
+				type: Date
+			},
+			updatedAt: {
+				type: Date
+			}
 		}
 	};
 
